@@ -1,0 +1,6 @@
+.custom-svg {
+    width: 100%; /* Utilise tout l’espace disponible */
+    max-width: 50px; /* Taille maximale en largeur */
+    height: auto; /* Ajuste la hauteur automatiquement */
+    display: block; /* Évite les marges indésirables */
+}

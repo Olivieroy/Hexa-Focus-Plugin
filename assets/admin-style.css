@@ -1,0 +1,96 @@
+.focus-gutenberg-js {
+    max-width: 900px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    border: 1px solid #ccd0d4;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.focus-gutenberg-js h1 {
+    font-size: 24px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.focus-gutenberg-js h2 {
+    font-size: 20px;
+    color: #0073aa;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.focus-gutenberg-js ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.focus-gutenberg-js li {
+    background: #f7f7f7;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.focus-gutenberg-js .button-primary {
+    background: #0073aa;
+    border-color: #0073aa;
+    color: #ffffff;
+    text-shadow: none;
+    box-shadow: none;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.focus-gutenberg-js .button-primary:hover {
+    background: #005177;
+    border-color: #005177;
+}
+
+.focus-gutenberg-js .button-secondary {
+    background: #f3f3f3;
+    border-color: #cccccc;
+    color: #555555;
+    text-shadow: none;
+    box-shadow: none;
+    font-size: 14px;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.focus-gutenberg-js .button-secondary:hover {
+    background: red;
+    border-color: red;
+    color: #ffffff;
+}
+
+.focus-gutenberg-js .notice {
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.focus-gutenberg-js .notice.updated {
+    background: #e5f6df;
+    color: #2c662d;
+}
+
+.focus-gutenberg-js .notice.error {
+    background: #fbeaea;
+    color: #a4262c;
+}
+
+.focus-gutenberg-js .flex-container{
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

@@ -16,12 +16,10 @@ add_action('admin_post_handle_gutenberg_js', function () {
     wp_mkdir_p($upload_dir);
   }
 
-  if (!file_exists($disabled_file)) {
-    file_put_contents($disabled_file, json_encode([]));
-  }
-
-  if (!file_exists($block_history_file)) {
-    file_put_contents($block_history_file, json_encode([]));
+  foreach ([$disabled_file, $block_history_file] as $file) {
+    if (!file_exists($file)) {
+      file_put_contents($file, json_encode([]));
+    }
   }
 
   // Charger les fichiers JSON
@@ -39,16 +37,19 @@ add_action('admin_post_handle_gutenberg_js', function () {
     'date'   => date("Y-m-d H:i:s")
   ];
 
-  // Fonction pour récupérer `Title` et `Category` d'un fichier JS
+  // Fonction pour récupérer `Title`, `Category` et `Icon` d'un fichier JS
   function get_block_info($file_path)
   {
     $content = file_get_contents($file_path);
+
     preg_match("/title:\s*['\"](.+?)['\"]/", $content, $title_match);
     preg_match("/category:\s*['\"](.+?)['\"]/", $content, $category_match);
+    preg_match("/icon:\s*['\"](.+?)['\"]/", $content, $icon_match);
 
     return [
       'title' => $title_match[1] ?? 'Unknown Title',
-      'category' => $category_match[1] ?? 'Uncategorized'
+      'category' => $category_match[1] ?? 'Uncategorized',
+      'icon' => $icon_match[1] ?? 'admin-generic'
     ];
   }
 
@@ -69,7 +70,8 @@ add_action('admin_post_handle_gutenberg_js', function () {
             'action'   => 'add',
             'file'     => $file_name,
             'title'    => $block_info['title'],
-            'category' => $block_info['category']
+            'category' => $block_info['category'],
+            'icon'     => $block_info['icon']
           ]);
 
           file_put_contents($block_history_file, json_encode($block_history, JSON_PRETTY_PRINT));
@@ -96,7 +98,8 @@ add_action('admin_post_handle_gutenberg_js', function () {
         'action'   => 'delete',
         'file'     => $file_to_delete,
         'title'    => $block_info['title'],
-        'category' => $block_info['category']
+        'category' => $block_info['category'],
+        'icon'     => $block_info['icon']
       ]);
 
       file_put_contents($block_history_file, json_encode($block_history, JSON_PRETTY_PRINT));
@@ -109,8 +112,6 @@ add_action('admin_post_handle_gutenberg_js', function () {
   // 📌 Gestion des activations/désactivations
   if (!empty($_POST['toggle_block'])) {
     $block_to_toggle = sanitize_file_name($_POST['toggle_block']);
-
-    // Récupère les infos du fichier
     $file_path = $upload_dir . '/' . $block_to_toggle;
     $block_info = get_block_info($file_path);
 
@@ -122,7 +123,8 @@ add_action('admin_post_handle_gutenberg_js', function () {
         'action'   => 'enable',
         'file'     => $block_to_toggle,
         'title'    => $block_info['title'],
-        'category' => $block_info['category']
+        'category' => $block_info['category'],
+        'icon'     => $block_info['icon']
       ]);
       $success_message = __('Block enabled successfully!', 'focus-gutenberg-js');
     } else {
@@ -133,7 +135,8 @@ add_action('admin_post_handle_gutenberg_js', function () {
         'action'   => 'disable',
         'file'     => $block_to_toggle,
         'title'    => $block_info['title'],
-        'category' => $block_info['category']
+        'category' => $block_info['category'],
+        'icon'     => $block_info['icon']
       ]);
       $success_message = __('Block disabled successfully!', 'focus-gutenberg-js');
     }

@@ -3,6 +3,18 @@ $upload_dir = plugin_dir_path(dirname(__FILE__)) . '/js-uploads';
 $disabled_file = $upload_dir . '/disabled-blocks.json';
 $history_file = $upload_dir . '/block-history.json';
 
+if (!file_exists($upload_dir)) {
+  wp_mkdir_p($upload_dir);
+}
+
+if (!file_exists($history_file)) {
+  file_put_contents($history_file, json_encode([], JSON_PRETTY_PRINT));
+}
+
+if (!file_exists($disabled_file)) {
+  file_put_contents($disabled_file, json_encode([], JSON_PRETTY_PRINT));
+}
+
 // Charger les fichiers JSON
 $disabled_blocks = json_decode(file_get_contents($disabled_file), true) ?: [];
 $block_history = json_decode(file_get_contents($history_file), true) ?: [];
@@ -13,6 +25,7 @@ foreach ($disabled_blocks as $file) {
   $title = 'Unknown Title';
   $category = 'Uncategorized';
   $last_modified_by = 'Unknown User';
+  $icon = 'admin-generic';
 
   // Vérifier si une entrée existe dans l'historique
   foreach ($block_history as $entry) {
@@ -20,6 +33,7 @@ foreach ($disabled_blocks as $file) {
       $title = $entry['title'] ?? $title;
       $category = ucfirst($entry['category'] ?? $category);
       $last_modified_by = $entry['name'] ?? $last_modified_by;
+      $icon = $entry['icon'] ?? $icon;
     }
   }
 
@@ -32,7 +46,8 @@ foreach ($disabled_blocks as $file) {
     'file' => $file,
     'title' => $title,
     'category' => $category,
-    'last_modified_by' => $last_modified_by
+    'last_modified_by' => $last_modified_by,
+    'icon' => $icon
   ];
 }
 
@@ -52,29 +67,41 @@ ksort($categorized_disabled_blocks);
   <?php if (!empty($categorized_disabled_blocks)) : ?>
     <?php foreach ($categorized_disabled_blocks as $category => $blocks) : ?>
       <h2><?php echo esc_html($category); ?></h2>
-      <ul>
+      <div class="blocks-list">
         <?php foreach ($blocks as $block) : ?>
-          <li class="block-item"
+          <div class="block-item"
             data-title="<?php echo esc_attr($block['title']); ?>"
             data-category="<?php echo esc_attr($block['category']); ?>"
             data-file="<?php echo esc_attr($block['file']); ?>">
-            <strong><?php echo esc_html($block['title']); ?></strong> (<?php echo esc_html($block['file']); ?>)
-            <span class="last-modified"><?php _e('Last modified by', 'hexatenberg-js'); ?>: <?php echo esc_html($block['last_modified_by']); ?></span>
-            <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
-              <input type="hidden" name="action" value="handle_gutenberg_js">
-              <input type="hidden" name="toggle_block" value="<?php echo esc_attr($block['file']); ?>">
-              <input type="hidden" name="redirect_page" value="focus-disabled-blocks">
-              <button type="submit" class="button-enable"><?php _e('Enable', 'hexatenberg-js'); ?></button>
-            </form>
-            <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
-              <input type="hidden" name="action" value="handle_gutenberg_js">
-              <input type="hidden" name="js_to_delete" value="<?php echo esc_attr($block['file']); ?>">
-              <input type="hidden" name="redirect_page" value="focus-disabled-blocks">
-              <button type="submit" class="button-delete"><?php _e('Delete', 'hexatenberg-js'); ?></button>
-            </form>
-          </li>
+            <span class="dashicons dashicons-<?php echo esc_attr($block['icon']); ?>"></span>
+
+
+            <div class="block-name">
+              <h3><?php echo esc_html($block['title']); ?></h3>
+              <span class="file-name">(<?php echo esc_html($block['file']); ?>)</span>
+            </div>
+            <div class="modified-by">
+              <span class="last-modified"><?php _e('Last modified by', 'hexatenberg-js'); ?>:</span>
+              <span> <?php echo esc_html($block['last_modified_by']); ?></span>
+            </div>
+
+            <div class="grp-button">
+              <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
+                <input type="hidden" name="action" value="handle_gutenberg_js">
+                <input type="hidden" name="toggle_block" value="<?php echo esc_attr($block['file']); ?>">
+                <input type="hidden" name="redirect_page" value="focus-disabled-blocks">
+                <button type="submit" class="button-enable"><?php _e('Enable', 'hexatenberg-js'); ?></button>
+              </form>
+              <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
+                <input type="hidden" name="action" value="handle_gutenberg_js">
+                <input type="hidden" name="js_to_delete" value="<?php echo esc_attr($block['file']); ?>">
+                <input type="hidden" name="redirect_page" value="focus-disabled-blocks">
+                <button type="submit" class="button-delete"><?php _e('Delete', 'hexatenberg-js'); ?></button>
+              </form>
+            </div>
+          </div>
         <?php endforeach; ?>
-      </ul>
+      </div>
     <?php endforeach; ?>
   <?php else : ?>
     <p><?php _e('No disabled blocks found.', 'hexatenberg-js'); ?></p>

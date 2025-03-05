@@ -14,10 +14,20 @@
     │   ├── activation.php📄
     │   ├── admin-menu.php📄
     │   ├── enqueue-scripts.php📄
-    │   ├── file-handler.php📄
-    │   └── template-admin.php📄
+    │   └── file-handler.php📄
     ├── index.php📄
     ├── js-uploads/ 📁
+    │   ├── block-history.json📄
+    │   ├── disabled-blocks.json📄
+    │   ├── error-blocks.json📄
+    │   ├── widgets-example-block.js📄
+    │   └── widgets-second-block.js📄
+    ├── pages/ 📁
+    │   ├── custom-blocks.php📄
+    │   ├── dashboard.php📄
+    │   ├── disabled-blocks.php📄
+    │   ├── upload-blocks.php📄
+    │   └── user-history.php📄
     └── style.css📄
     📄
-    6 directories, 13 files📄
+    7 directories, 22 files📄

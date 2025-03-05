@@ -1,0 +1,1 @@
+(0,wp.blocks.registerBlockType)("custom/second-block",{title:"Second Block",icon:"heart",category:"widgets",edit:function(){return React.createElement("p",null,"Hello from the editor! (Second Block)")},save:function(){return React.createElement("p",null,"Hello from the frontend! (Second Block)")}});

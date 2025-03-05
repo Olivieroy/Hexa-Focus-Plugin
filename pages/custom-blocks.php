@@ -17,6 +17,8 @@ foreach ($custom_blocks as $file) {
   $title = 'Unknown Title';
   $category = 'Uncategorized';
   $last_modified_by = 'Unknown User';
+  $icon = 'admin-generic';
+  $avatar = 'https://www.gravatar.com/avatar/?d=mp';
 
   // Vérifier si une entrée existe dans l'historique
   foreach ($block_history as $entry) {
@@ -24,6 +26,8 @@ foreach ($custom_blocks as $file) {
       $title = $entry['title'] ?? $title;
       $category = ucfirst($entry['category'] ?? $category);
       $last_modified_by = $entry['name'] ?? $last_modified_by;
+      $icon = $entry['icon'] ?? $icon;
+      $avatar = $entry['avatar'] ?? $avatar;
     }
   }
 
@@ -36,7 +40,8 @@ foreach ($custom_blocks as $file) {
     'file' => $file,
     'title' => $title,
     'category' => $category,
-    'last_modified_by' => $last_modified_by
+    'last_modified_by' => $last_modified_by,
+    'icon' => $icon
   ];
 }
 
@@ -52,7 +57,7 @@ if ($sort_order === 'reverse') {
 
 <div class="wrap hexatenberg-js">
   <h1>
-    <span class="dashicons dashicons-block"></span>
+    <span class="dashicons dashicons-layout"></span>
     <?php _e('My Custom Blocks', 'hexatenberg-js'); ?>
   </h1>
 
@@ -60,37 +65,45 @@ if ($sort_order === 'reverse') {
   <input type="text" id="search-input" placeholder="<?php _e('Search by Title, Category or File Name...', 'hexatenberg-js'); ?>" style="width: 100%; padding: 8px; margin-bottom: 10px;">
 
   <!-- Boutons de tri -->
-  <div class="sorting-options">
-    <a href="?page=focus-custom-blocks&sort=alphabetical" class="button"><?php _e('Sort Alphabetically', 'hexatenberg-js'); ?></a>
-    <a href="?page=focus-custom-blocks&sort=reverse" class="button"><?php _e('Reverse Order', 'hexatenberg-js'); ?></a>
-  </div>
 
   <?php if (!empty($categorized_blocks)) : ?>
     <?php foreach ($categorized_blocks as $category => $blocks) : ?>
       <h2><?php echo esc_html($category); ?></h2>
-      <ul>
+      <div class="blocks-list">
         <?php foreach ($blocks as $block) : ?>
-          <li class="block-item"
+          <div class="block-item"
             data-title="<?php echo esc_attr($block['title']); ?>"
             data-category="<?php echo esc_attr($block['category']); ?>"
             data-file="<?php echo esc_attr($block['file']); ?>">
-            <strong><?php echo esc_html($block['title']); ?></strong> (<?php echo esc_html($block['file']); ?>)
-            <span class="last-modified"><?php _e('Last modified by', 'hexatenberg-js'); ?>: <?php echo esc_html($block['last_modified_by']); ?></span>
-            <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
-              <input type="hidden" name="action" value="handle_gutenberg_js">
-              <input type="hidden" name="toggle_block" value="<?php echo esc_attr($block['file']); ?>">
-              <input type="hidden" name="redirect_page" value="focus-custom-blocks">
-              <button type="submit" class=" button-disable"><?php _e('Disable', 'hexatenberg-js'); ?></button>
-            </form>
-            <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
-              <input type="hidden" name="action" value="handle_gutenberg_js">
-              <input type="hidden" name="js_to_delete" value="<?php echo esc_attr($block['file']); ?>">
-              <input type="hidden" name="redirect_page" value="focus-custom-blocks">
-              <button type="submit" class=" button-delete"><?php _e('Delete', 'hexatenberg-js'); ?></button>
-            </form>
-          </li>
+            <span class="dashicons dashicons-<?php echo esc_attr($block['icon']); ?>"></span>
+
+
+            <div class="block-name">
+              <h3><?php echo esc_html($block['title']); ?></h3>
+              <span class="file-name">(<?php echo esc_html($block['file']); ?>)</span>
+            </div>
+            <div class="modified-by">
+              <span class="last-modified"><?php _e('Last modified by', 'hexatenberg-js'); ?>:</span>
+              <span> <?php echo esc_html($block['last_modified_by']); ?></span>
+            </div>
+
+            <div class="grp-button">
+              <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
+                <input type="hidden" name="action" value="handle_gutenberg_js">
+                <input type="hidden" name="toggle_block" value="<?php echo esc_attr($block['file']); ?>">
+                <input type="hidden" name="redirect_page" value="focus-custom-blocks">
+                <button type="submit" class=" button-disable"><?php _e('Disable', 'hexatenberg-js'); ?></button>
+              </form>
+              <form method="post" action="<?php echo admin_url('admin-post.php'); ?>" style="display:inline;">
+                <input type="hidden" name="action" value="handle_gutenberg_js">
+                <input type="hidden" name="js_to_delete" value="<?php echo esc_attr($block['file']); ?>">
+                <input type="hidden" name="redirect_page" value="focus-custom-blocks">
+                <button type="submit" class=" button-delete"><?php _e('Delete', 'hexatenberg-js'); ?></button>
+              </form>
+            </div>
+          </div>
         <?php endforeach; ?>
-      </ul>
+      </div>
     <?php endforeach; ?>
   <?php else : ?>
     <p><?php _e('No active blocks found.', 'hexatenberg-js'); ?></p>

@@ -1,7 +1,13 @@
 <?php
 // Définir les chemins
 $upload_dir = plugin_dir_path(dirname(__FILE__)) . '/js-uploads';
+
+if (!file_exists($upload_dir)) {
+  wp_mkdir_p($upload_dir);
+}
 ?>
+
+
 
 <div class="wrap hexatenberg-js">
   <h1>

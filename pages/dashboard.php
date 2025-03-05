@@ -9,6 +9,15 @@ if (!file_exists($error_file)) {
   file_put_contents($error_file, json_encode([]));
 }
 
+if (!file_exists($disabled_file)) {
+  file_put_contents($disabled_file, json_encode([]));
+}
+
+if (!file_exists($block_history_file)) {
+  file_put_contents($block_history_file, json_encode([]));
+}
+
+
 $disabled_blocks = json_decode(file_get_contents($disabled_file), true) ?: [];
 $block_history = json_decode(file_get_contents($block_history_file), true) ?: [];
 $error_blocks = json_decode(file_get_contents($error_file), true) ?: [];

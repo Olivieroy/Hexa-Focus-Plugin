@@ -1,0 +1,119 @@
+[
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 16:23:49",
+        "block": "widgets-example-block.js",
+        "action": "disable",
+        "file": "widgets-example-block.js",
+        "title": "Example Block",
+        "category": "widgets"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 16:24:21",
+        "block": "widgets-example-block.js",
+        "action": "enable",
+        "file": "widgets-example-block.js",
+        "title": "Example Block",
+        "category": "widgets"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 16:46:16",
+        "block": "widgets-example-block.js",
+        "action": "disable",
+        "file": "widgets-example-block.js",
+        "title": "Example Block",
+        "category": "widgets"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 16:53:14",
+        "block": "widgets-second-block.js",
+        "action": "disable",
+        "file": "widgets-second-block.js",
+        "title": "Second Block",
+        "category": "widgets",
+        "icon": "heart"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 16:53:17",
+        "block": "widgets-example-block.js",
+        "action": "enable",
+        "file": "widgets-example-block.js",
+        "title": "Example Block",
+        "category": "widgets",
+        "icon": "smiley"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 16:53:17",
+        "block": "widgets-second-block.js",
+        "action": "enable",
+        "file": "widgets-second-block.js",
+        "title": "Second Block",
+        "category": "widgets",
+        "icon": "heart"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 22:14:19",
+        "block": "widgets-example-block.js",
+        "action": "disable",
+        "file": "widgets-example-block.js",
+        "title": "Example Block",
+        "category": "widgets",
+        "icon": "smiley"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 22:17:29",
+        "block": "widgets-example-block.js",
+        "action": "enable",
+        "file": "widgets-example-block.js",
+        "title": "Example Block",
+        "category": "widgets",
+        "icon": "smiley"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 22:17:32",
+        "block": "widgets-testthird-block.js",
+        "action": "disable",
+        "file": "widgets-testthird-block.js",
+        "title": "Test Block",
+        "category": "widgets",
+        "icon": "heart"
+    },
+    {
+        "id": 1,
+        "name": "Hexa",
+        "avatar": "https:\/\/secure.gravatar.com\/avatar\/979c09a28a7bd9a6b2f64b49730ff65e?s=96&d=mm&r=g",
+        "date": "2025-03-05 22:17:35",
+        "block": "widgets-testthird-block.js",
+        "action": "enable",
+        "file": "widgets-testthird-block.js",
+        "title": "Test Block",
+        "category": "widgets",
+        "icon": "heart"
+    }
+]

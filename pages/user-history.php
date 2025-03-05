@@ -11,6 +11,11 @@ if (!function_exists('hexatenberg_user_history_page')) {
     $block_history_file = $upload_dir . '/block-history.json';
     $block_history = json_decode(file_get_contents($block_history_file), true) ?: [];
 
+    if (!file_exists($block_history_file)) {
+      file_put_contents($block_history_file, json_encode([], JSON_PRETTY_PRINT));
+    }
+
+
     // 📌 Regrouper les utilisateurs ayant effectué des actions
     $users = [];
     foreach ($block_history as $entry) {
@@ -39,16 +44,16 @@ if (!function_exists('hexatenberg_user_history_page')) {
 
         <input type="text" id="search-user" placeholder="<?php _e('Search user...', 'hexatenberg-js'); ?>" style="width: 100%; padding: 8px; margin-bottom: 10px;">
 
-        <ul class="user-list">
+        <div class="user-list">
           <?php foreach ($users as $user) { ?>
-            <li class="user-item">
-              <img src="<?php echo esc_url($user['avatar']); ?>" class="avatar-small" alt="<?php echo esc_attr($user['name']); ?>">
-              <a href="<?php echo esc_url(admin_url('admin.php?page=hexatenberg-user-history&user=' . $user['id'])); ?>">
+            <a href="<?php echo esc_url(admin_url('admin.php?page=hexatenberg-user-history&user=' . $user['id'])); ?>" class="user-item">
+              <img src="<?php echo esc_url($user['avatar']); ?>" class="user-avatar" alt="<?php echo esc_attr($user['name']); ?>">
+              <p class="user-name">
                 <?php echo esc_html($user['name']); ?>
-              </a>
-            </li>
+              </p>
+            </a>
           <?php } ?>
-        </ul>
+        </div>
       </div>
 
       <script>

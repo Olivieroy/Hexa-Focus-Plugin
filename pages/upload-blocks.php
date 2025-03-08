@@ -1,5 +1,5 @@
 <?php
-// Définir les chemins
+
 $upload_dir = plugin_dir_path(dirname(__FILE__)) . '/js-uploads';
 
 if (!file_exists($upload_dir)) {

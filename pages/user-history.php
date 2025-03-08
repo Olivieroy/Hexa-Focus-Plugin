@@ -15,8 +15,6 @@ if (!function_exists('hexatenberg_user_history_page')) {
       file_put_contents($block_history_file, json_encode([], JSON_PRETTY_PRINT));
     }
 
-
-    // 📌 Regrouper les utilisateurs ayant effectué des actions
     $users = [];
     foreach ($block_history as $entry) {
       $user_id = $entry['id'] ?? 'unknown';
@@ -29,12 +27,10 @@ if (!function_exists('hexatenberg_user_history_page')) {
       }
     }
 
-    // 📌 Trier les utilisateurs par ordre alphabétique
     uasort($users, function ($a, $b) {
       return strcasecmp($a['name'], $b['name']);
     });
 
-    // 📌 Sélection d'un utilisateur
     if (empty($_GET['user'])) { ?>
       <div class="wrap hexatenberg-js">
         <h1>
@@ -69,13 +65,11 @@ if (!function_exists('hexatenberg_user_history_page')) {
     <?php return;
     }
 
-    // 📌 Afficher l'historique du user sélectionné
     $user_id = $_GET['user'];
     $user_history = array_filter($block_history, function ($entry) use ($user_id) {
       return $entry['id'] == $user_id;
     });
 
-    // 📌 Trier par date décroissante
     usort($user_history, function ($a, $b) {
       return strtotime($b['date']) - strtotime($a['date']);
     });
@@ -85,7 +79,6 @@ if (!function_exists('hexatenberg_user_history_page')) {
       return;
     }
 
-    // 📌 Pagination
     $per_page = 40;
     $total_entries = count($user_history);
     $total_pages = ceil($total_entries / $per_page);
@@ -101,7 +94,7 @@ if (!function_exists('hexatenberg_user_history_page')) {
           $selected_user_avatar = esc_url($users[$user_id]['avatar']);
         } else {
           $selected_user_name = __('Unknown User', 'hexatenberg-js');
-          $selected_user_avatar = 'https://www.gravatar.com/avatar/?d=mp'; // Avatar par défaut
+          $selected_user_avatar = 'https://www.gravatar.com/avatar/?d=mp';
         }
         ?>
 

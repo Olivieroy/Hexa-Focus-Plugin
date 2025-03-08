@@ -15,7 +15,6 @@ if (!file_exists($disabled_file)) {
   file_put_contents($disabled_file, json_encode([], JSON_PRETTY_PRINT));
 }
 
-// Charger les fichiers JSON
 $disabled_blocks = json_decode(file_get_contents($disabled_file), true) ?: [];
 $block_history = json_decode(file_get_contents($history_file), true) ?: [];
 
@@ -27,7 +26,6 @@ foreach ($disabled_blocks as $file) {
   $last_modified_by = 'Unknown User';
   $icon = 'admin-generic';
 
-  // Vérifier si une entrée existe dans l'historique
   foreach ($block_history as $entry) {
     if ($entry['file'] === $file) {
       $title = $entry['title'] ?? $title;
@@ -37,9 +35,8 @@ foreach ($disabled_blocks as $file) {
     }
   }
 
-  // Déduire la catégorie depuis le nom du fichier si non définie
   if (preg_match('/^([^-]+)-.+\.js$/', $file, $matches)) {
-    $category = ucfirst($matches[1]); // Extrait la première partie du nom de fichier
+    $category = ucfirst($matches[1]);
   }
 
   $categorized_disabled_blocks[$category][] = [
@@ -51,7 +48,6 @@ foreach ($disabled_blocks as $file) {
   ];
 }
 
-// Tri par défaut des catégories en ordre alphabétique
 ksort($categorized_disabled_blocks);
 ?>
 
@@ -61,7 +57,6 @@ ksort($categorized_disabled_blocks);
     <?php _e('Disabled Blocks', 'hexatenberg-js'); ?>
   </h1>
 
-  <!-- Search Bar -->
   <input type="text" id="search-input" placeholder="<?php _e('Search by Title, Category or File Name...', 'hexatenberg-js'); ?>" style="width: 100%; padding: 8px; margin-bottom: 10px;">
 
   <?php if (!empty($categorized_disabled_blocks)) : ?>

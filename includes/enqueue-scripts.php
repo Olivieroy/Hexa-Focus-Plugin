@@ -3,23 +3,19 @@ add_action('enqueue_block_editor_assets', function () {
   $upload_dir = plugin_dir_path(dirname(__FILE__)) . '/js-uploads';
   $disabled_file = $upload_dir . '/disabled-blocks.json';
 
-  // Vérifie et crée le dossier js-uploads s'il n'existe pas
   if (!file_exists($upload_dir)) {
     wp_mkdir_p($upload_dir);
   }
 
-  // Vérifie et crée le fichier disabled-blocks.json s'il n'existe pas
   if (!file_exists($disabled_file)) {
     file_put_contents($disabled_file, json_encode([]));
   }
 
-  // Charge la liste des blocs désactivés
   $disabled_blocks = json_decode(file_get_contents($disabled_file), true);
   if (!is_array($disabled_blocks)) {
     $disabled_blocks = [];
   }
 
-  // Vérifie que c'est bien un dossier avant de scanner
   if (!is_dir($upload_dir)) {
     return;
   }
@@ -30,7 +26,6 @@ add_action('enqueue_block_editor_assets', function () {
       && !in_array($file, $disabled_blocks);
   });
 
-  // Enregistre et charge chaque fichier JS non désactivé
   foreach ($files as $file) {
     wp_enqueue_script(
       'gutenberg-block-' . pathinfo($file, PATHINFO_FILENAME),

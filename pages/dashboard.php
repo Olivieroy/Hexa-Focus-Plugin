@@ -31,7 +31,6 @@ $files = array_diff(scandir($upload_dir), ['.', '..', 'disabled-blocks.json', 'b
 $active_blocks = array_diff($files, $disabled_blocks);
 $errored_blocks = array_intersect($files, $error_blocks);
 
-// Définir le statut du système
 $total_blocks = count($files);
 $error_count = count($errored_blocks);
 $status_color = '#4CAF50';
@@ -51,7 +50,6 @@ if ($status_percentage >= 80) {
   $status_color = '#FF0000';
 }
 
-// Calcul du pourcentage pour le donut
 $circle_radius = 30;
 $circumference = 2 * M_PI * $circle_radius;
 $stroke_dashoffset = $circumference * ((100 - $status_percentage) / 100);
@@ -220,15 +218,13 @@ $stroke_dashoffset = $circumference * ((100 - $status_percentage) / 100);
     const rows = Array.from(document.querySelectorAll(".history-entry"));
     const userHeaders = Array.from(document.querySelectorAll(".user-header"));
 
-    // Fonction pour trier
     function sortTable(sortKey) {
-      // Trier les entrées, en excluant les user-header
       const sortedRows = [...rows].sort((a, b) => {
         let aValue = a.getAttribute(`data-${sortKey}`);
         let bValue = b.getAttribute(`data-${sortKey}`);
 
         if (sortKey === "date") {
-          return Number(bValue) - Number(aValue); // Tri décroissant par date
+          return Number(bValue) - Number(aValue); 
         } else {
           return aValue.localeCompare(bValue, undefined, {
             numeric: true
@@ -236,10 +232,10 @@ $stroke_dashoffset = $circumference * ((100 - $status_percentage) / 100);
         }
       });
 
-      // Vider le tableau avant de réinsérer les éléments
+      
       tableBody.innerHTML = "";
 
-      // Regrouper les entrées avec leurs en-têtes
+      
       const groupedData = {};
 
       sortedRows.forEach(row => {
@@ -250,24 +246,24 @@ $stroke_dashoffset = $circumference * ((100 - $status_percentage) / 100);
         groupedData[userName].push(row);
       });
 
-      // Réinsérer les en-têtes et les actions dans le bon ordre
+      
       userHeaders.forEach(header => {
         const userName = header.getAttribute("data-user");
         if (groupedData[userName]) {
-          tableBody.appendChild(header); // Réinsère l’en-tête utilisateur
-          groupedData[userName].forEach(row => tableBody.appendChild(row)); // Réinsère les actions
+          tableBody.appendChild(header); 
+          groupedData[userName].forEach(row => tableBody.appendChild(row)); 
         }
       });
     }
 
-    // Appliquer le tri lors du clic sur les boutons
+    
     document.querySelectorAll(".sort-button").forEach(button => {
       button.addEventListener("click", function() {
         sortTable(this.getAttribute("data-sort"));
       });
     });
 
-    // Gestion du filtrage
+    
     document.querySelector("#filter-action").addEventListener("change", function() {
       const selectedAction = this.value;
       rows.forEach(row => {

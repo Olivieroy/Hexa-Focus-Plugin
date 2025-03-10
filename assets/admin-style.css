@@ -1,3 +1,24 @@
+
+#toplevel_page_hexatenberg-dashboard .wp-menu-image:before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    background-image: url('../assets/svg/menu-icon.svg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: auto;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#toplevel_page_hexatenberg-dashboard.wp-has-current-submenu .wp-menu-image:before,
+#toplevel_page_hexatenberg-dashboard:hover .wp-menu-image:before {
+    opacity: 1;
+}
+
+
 .hexatenberg-js {
   margin: 20px auto;
   margin-right: 20px;
@@ -23,7 +44,6 @@
   height: 28px;
 }
 
-/* FIXME : Revoir le h2 en style */
 .hexatenberg-js h2 {
   font-size: 20px;
   margin-top: 20px;
